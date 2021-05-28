@@ -1,22 +1,3 @@
-/* const input = document.querySelector('input[name="price"]')
-input.addEventListener("keydown", function(e){
-
-      setTimeout(function(){
-        let { value } = e.target
-
-        value = value.replace(/\D/g, "")
-
-        value = new Intl.NumberFormat('pt-BR',{
-            style: 'currency',
-            currency: 'BRL'   
-        }).format(value/100)
-  
-        e.target.value = value
-      }, 1)
-
-  
-}) */ /* Método mais dinamico abaixo */
-
 const Mask = {
     apply(input,func){
       setTimeout(function(){
@@ -32,6 +13,41 @@ const Mask = {
             style: 'currency',
             currency: 'BRL'   
         }).format(value/100)
+    },
+    cpfCnpj(value){
+         value = value.replace(/\D/g, "")
+
+         // check if is cpf or cnpj
+         if(value.length > 14){
+           value = value.slice(0, -1)
+         }
+         
+         //cnpj
+         if(value.length > 11){
+              //cnpj
+              value = value.replace(/(\d{2})(\d)/, "$1.$2")
+              value = value.replace(/(\d{3})(\d)/, "$1.$2")
+              value = value.replace(/(\d{3})(\d)/, "$1/$2")
+              value = value.replace(/(\d{4})(\d)/, "$1-$2")
+         } else {
+              //cpf
+              value = value.replace(/(\d{3})(\d)/, "$1.$2")
+              value = value.replace(/(\d{3})(\d)/, "$1.$2")
+              value = value.replace(/(\d{3})(\d)/, "$1-$2")
+         }
+         
+         return value
+    },
+    cep(value){
+      value = value.replace(/\D/g, "")
+
+      if(value.length > 8){
+        value = value.slice(0, -1)
+      }
+       
+      value = value.replace(/(\d{5})(\d)/, "$1-$2")
+
+      return value
     }
 }
 
@@ -174,5 +190,14 @@ const Lightbox = {
        Lightbox.target.style.top = "-100%"
        Lightbox.target.style.bottom = "initial"
        Lightbox.closeButton.style.top = "-80px"
+  }
+}
+
+const Validate = {
+  apply(input,func){
+    setTimeout(function(){
+       input.value = Validate[func](input.value)
+
+    }, 1) 
   }
 }
