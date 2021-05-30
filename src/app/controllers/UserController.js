@@ -1,7 +1,30 @@
-
+const User = require('../models/User')
 
 module.exports = {
     registerForm(req, res) {
          return res.render("user/register")
+    },
+    async post(req,res){
+        //check if has all fields
+        const keys = Object.keys(req.body)
+         
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("porfavor preencha todos os campos")
+            }
+        }
+        //check if user exists[email, cpf_cnpj]
+        const { email, cpf_cnpj, password, passwordRepeat } = req.body
+        const user = await User.findOne({
+            where:{email},
+            or:{cpf_cnpj}
+        })
+
+        if(user) return res.send('Users Exists')
+        //check if passwords match
+
+        if(password != passwordRepeat) return res.send('Passwords dont match')
+
+        return res.send("passed!")
     }
 }
