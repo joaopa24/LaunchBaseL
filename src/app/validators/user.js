@@ -1,6 +1,6 @@
 const User = require('../models/User')
 
-function post(req,res,next){
+async function post(req,res,next){
       //check if has all fields
       const keys = Object.keys(req.body)
          
@@ -25,4 +25,8 @@ function post(req,res,next){
       if(password != passwordRepeat) return res.send('Passwords dont match')
 
       next()
+}
+
+module.exports = {
+    post
 }
