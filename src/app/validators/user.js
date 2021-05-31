@@ -6,7 +6,10 @@ async function post(req,res,next){
          
       for (key of keys) {
           if (req.body[key] == "") {
-              return res.send("porfavor preencha todos os campos")
+              return res.render('user/register', {
+                user: req.body,
+                error: 'Por favor, preencha todos os campos!'
+            })
           }
       }
       //check if user exists[email, cpf_cnpj]
@@ -25,7 +28,10 @@ async function post(req,res,next){
       })
       //check if passwords match
 
-      if(password != passwordRepeat) return res.send('Passwords dont match')
+      if(password != passwordRepeat) return res.render('user/register', {
+        user: req.body,
+        error: 'A senha e a repetição não são iguais!'
+      })
 
       next()
 }
