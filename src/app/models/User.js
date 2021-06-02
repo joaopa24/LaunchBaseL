@@ -61,7 +61,7 @@ module.exports = {
                query = `${query} ${key} = '${fields[key]}',`
           } else {
               // last iteration
-              query = `${query}${key} = '${fields[key]}'
+              query = `${query} ${key} = '${fields[key]}'
               WHERE id = ${id}
               `
           }
