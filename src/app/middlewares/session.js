@@ -6,5 +6,5 @@ function onlyUsers(req, res, next){
 }
 
 module.exports = {
-    onlyUser
+    onlyUsers
 }
