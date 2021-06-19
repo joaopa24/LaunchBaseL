@@ -16,7 +16,13 @@ module.exports = {
         return res.render("session/forgot-password")
      },
      forgot(req, res){
-         
+         // token para esse usúario
+
+         // criar uma expiração do token
+
+         // enviar um email com um link de recuperação
+
+         // avisar o usuário que enviamos o email
      }
 
 }
