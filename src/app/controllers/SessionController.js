@@ -1,4 +1,4 @@
-const crypt = require('crypto')
+const crypto = require('crypto')
 const mailer = require('../../lib/mailer')
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
     forgotForm(req,res){
         return res.render("session/forgot-password")
      },
-     forgot(req, res){
+     async forgot(req, res){
          const user = req.user
 
          // token para esse usúario
