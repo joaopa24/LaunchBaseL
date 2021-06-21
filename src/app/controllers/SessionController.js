@@ -1,4 +1,6 @@
 const crypt = require('crypto')
+const mailer = require('../../lib/mailer')
+
 module.exports = {
     loginForm(req,res){
        return res.render("session/login")
@@ -30,8 +32,24 @@ module.exports = {
              reset_token_expires:now
          })
          // enviar um email com um link de recuperação
-
+         await mailer.sendMail({
+             to: user.email,
+             from:'no-reply@launchstore.com.br',
+             subject:'Recuperação de Senha',
+             html:`
+             <h2>Perdeu a chave?</h2>
+             <p>Não se preocupe, clique no link abaixo para recuperar sua senha</p>
+             <p>
+                <a href="http://localhost:3000/users/password-reset?token=${token}" target="_blank">
+                Recuperar Senha
+                </a>
+             </p>
+             `,
+         })
          // avisar o usuário que enviamos o email
+         return res.render("session/forgot-password",{
+             success:"Verifique seu email para resetar sua senha"
+         })
      }
 
 }
