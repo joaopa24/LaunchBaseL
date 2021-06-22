@@ -26,7 +26,7 @@ async function forgot(req, res, next) {
     const { email } = req.body
 
     try{
-        let user = await Iser.findOne({ where: { email } })
+        let user = await User.findOne({ where: { email } })
 
         if (!user) return res.render("session/forgot-password", {
             user:req.body,
