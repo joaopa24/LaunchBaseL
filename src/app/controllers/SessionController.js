@@ -58,6 +58,12 @@ module.exports = {
                 error:"Erro inesperado, tente novamente!"
             })
          }
+     },
+     resetForm(req,res){
+         return res.render("session/password-reset")
+     },
+     reset(req, res){
+
      }
 
 }
