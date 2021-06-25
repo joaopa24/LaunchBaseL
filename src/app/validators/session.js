@@ -42,7 +42,7 @@ async function forgot(req, res, next) {
 }
 async function reset(req, res, next) {
     // procurar o usuario
-    const { email, password, token } = req.body
+    const { email, password, token, passwordRepeat } = req.body
 
     const user = await User.findOne({ where: { email } })
 
