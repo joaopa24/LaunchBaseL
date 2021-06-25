@@ -7,17 +7,17 @@ async function login(req, res, next) {
     const user = await User.findOne({ where: { email } })
 
     if (!user) return res.render("session/login", {
-        user:req.body,
+        user: req.body,
         error: "Usuário não cadastrado"
     })
 
     const passed = await compare(password, user.password)
 
-    if(!passed) return res.render("session/login",{
-        user:req.body,
-        error:"Senha incorreta!"
+    if (!passed) return res.render("session/login", {
+        user: req.body,
+        error: "Senha incorreta!"
     })
-    
+
     req.user = user
 
     next()
@@ -25,22 +25,33 @@ async function login(req, res, next) {
 async function forgot(req, res, next) {
     const { email } = req.body
 
-    try{
+    try {
         let user = await User.findOne({ where: { email } })
 
         if (!user) return res.render("session/forgot-password", {
-            user:req.body,
+            user: req.body,
             error: "Email não cadastrado"
         })
 
         req.user = user
 
         next()
-    }catch(err){
+    } catch (err) {
         console.error(err)
     }
 }
+async function reset(req, res, next) {
+    // procurar o usuario
+
+    // ver se a senha bate
+
+    // verificar se o token bate
+
+    // verificar se o token não expirou
+    next()
+}
 module.exports = {
     login,
-    forgot
+    forgot,
+    reset
 }
