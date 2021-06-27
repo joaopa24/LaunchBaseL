@@ -64,9 +64,10 @@ module.exports = {
          return res.render("session/password-reset", { token: req.query.token })
      },
      async reset(req, res){
-         const { user } = req.user
-         const { email, password, passwordRepeat, token } = req.body
- 
+         const user = req.user
+
+         const {password, token } = req.body
+
          try{
              // criar um novo hash de senha
              const newPassword = await hash(password, 8)
@@ -87,6 +88,8 @@ module.exports = {
          }catch(err){
              console.error(err)
              return res.render("session/password-reset",{
+                 user:req.body,
+                 token,
                  error:"Erro inesperado, tente novamente"
              })
          }
