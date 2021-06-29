@@ -26,6 +26,8 @@ module.exports = {
         if (req.files.length == 0) {
               return res.send('Porfavor, envie pelo menos 1 imagem.')
         }
+
+        req.body.user_id = req.session.userId
           
         let results = await Product.create(req.body)
         const productId = results.rows[0].id
@@ -97,7 +99,6 @@ module.exports = {
         }
 
         if(req.files.length != 0){
-
             // validar se já não existem 6 imagens no total
             const oldFiles = await Product.files(req.body.id)
             const totalFiles = oldFiles.rows.length + req.files.length
