@@ -1,5 +1,6 @@
 const Mask = {
     apply(input,func){
+      // mask[func] == mask.function
       setTimeout(function(){
          input.value = Mask[func](input.value)
 
